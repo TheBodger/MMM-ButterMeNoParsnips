@@ -1,0 +1,54 @@
+
+canvas {
+  transition: transform 0.3s ease;
+ 
+}
+.butterme {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.button-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /*display: flex;*/
+  gap: 4px; /* spacing between buttons */
+  padding: 4px;
+  z-index: 10; /* ensure it overlays the canvas */
+  background: rgba(0, 0, 0, 0.3); /* optional: semi-transparent background */
+  border-radius: 4px;
+  opacity: 0.05; /* Default semi-transparent state */
+  transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
+}
+
+  .button-overlay:hover {
+    opacity: 1; /* Fully visible on hover */
+  }
+
+  .button-overlay button {
+    padding:2px 2px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #ffffffcc;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+
+  .button-overlay textarea {
+    padding: 0px 2px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ffffffcc;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+
+    .button-overlay button:hover {
+      background-color: #fff;
+    }

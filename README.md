@@ -7,5 +7,5 @@ The module will be passed the ID of the audio element in the magic mirror in the
 
 the visualiser can be placed anywhere, .
 
-the module also has a test harness option that will display stuf
-it will also have a showControsl option that will display the butterchurn control panel on mouse over.
+the module also has a test harness option that will display stuff
+it will also have a showControls option that will display the butterchurn control panel on mouse over.
