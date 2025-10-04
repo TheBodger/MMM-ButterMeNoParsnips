@@ -16,3 +16,5 @@ To incorporate the visualiser within your own code, include the buttermenoparsni
 use the helper functions to pass any config details such as the id of the audio tag.
 
 Because this uses the MediaElementAudioSourceNode function, some combinations of browsers and streaming servers, especially DLNA servers may be blocked from working. Use the proxy in MMM-AudioProxy or other proxy server to get round this feature.
+
+There are no dependencies.
