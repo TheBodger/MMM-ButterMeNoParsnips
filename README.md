@@ -1,11 +1,8 @@
 # MMM-ButterMeNoParsnips
-Demo of butterchurn butterchurn-presets
 
-objective is to build a MMM compatible module that acts as a butterchurn visualizer.
+Contains the neccessary code to support the butterchurn visualiser and using the butterchurn-presets default visualisations.
 
-The module will be passed the ID of the audio element in the magic mirror in the config and then everything else works just like magic.
+The core code is the buttermenoparsnips-min.js. 
+The helpers.js provides some common modules used along with this module.
 
-the visualiser can be placed anywhere, .
-
-the module also has a test harness option that will display stuff
-it will also have a showControls option that will display the butterchurn control panel on mouse over.
+For more details and examples of usage, see MMM-AudioProxy and MMM-SimplePlayer.
