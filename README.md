@@ -18,3 +18,5 @@ use the helper functions to pass any config details such as the id of the audio 
 Because this uses the MediaElementAudioSourceNode function, some combinations of browsers and streaming servers, especially DLNA servers may be blocked from working. Use the proxy in MMM-AudioProxy or other proxy server to get round this feature.
 
 There are no dependencies.
+
+Comedians like Joe Lycett have popularized the specific "butter me parsnips" version for comedic effect, often using it literally or as a humorous, nonsensical way to deliver a punchline. In this case it is a play on the butterchurn visualiser name.
