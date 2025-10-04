@@ -19,4 +19,4 @@ Because this uses the MediaElementAudioSourceNode function, some combinations of
 
 There are no dependencies.
 
-Comedians like Joe Lycett have popularized the specific "butter me parsnips" version for comedic effect, often using it literally or as a humorous, nonsensical way to deliver a punchline. In this case it is a play on the butterchurn visualiser name.
+Comedians like Joe Lycett have popularized the specific "butter me parsnips" version of the old phrase for comedic effect, often using it literally or as a humorous, nonsensical way to deliver a punchline. In this case it is a play on the butterchurn visualiser name.
