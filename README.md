@@ -1,5 +1,10 @@
 # MMM-ButterMeNoParsnips
 
+Unsuitable for Pi. At the moment the rpi does not appear to sufficiently support webgl that is used by the butterchurn visualiser.
+
+This has been tested using edge on win11 ok.
+This has been tested on Bookworm on PI5, no webgl support.
+
 Contains the neccessary code to support the [butterchurn](https://github.com/jberg/butterchurn) visualiser and using the butterchurn-presets default visualisations.
 
 The core code is the buttermenoparsnips-min.js. 
