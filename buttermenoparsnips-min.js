@@ -9,7 +9,7 @@
 //defaults
 
 let canvasID = "butterCanvas";
-let audioID = "sndAudio";
+let audioID = "audioPlayer";
 let showControls = true;
 let butterMeDivID = "butterMeDiv";
 
