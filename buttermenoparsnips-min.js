@@ -31,6 +31,15 @@ else
 
 import butterchurn from 'https://unpkg.com/butterchurn@3.0.0-beta.5/dist/butterchurn.js';
 
+function doSomething(message) {
+	alert(`Message from module: ${message}`);
+}
+
+// Expose to global scope
+window.myModuleAPI = {
+	doSomething
+};
+
 let audioCtx;
 let visualizer;
 let source = null;
@@ -49,6 +58,11 @@ if (!useMMDiv)
 else
 {
 	let butterMeDiv = document.getElementById(butterMeDivID);
+}
+
+function buildButterMeDiv()
+{
+	alert("Hello fred")
 }
 
 let canvas = document.createElement("canvas");
@@ -96,8 +110,6 @@ if (showControls) {
 	butterMeDiv.appendChild(controlsDiv);
 
 }
-
-//document.body.appendChild(butterMeDiv);
 
 presets = {};
 if (window.base && window.base.default) {

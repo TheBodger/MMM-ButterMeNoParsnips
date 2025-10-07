@@ -1,5 +1,5 @@
 var Helpers = {
-	addBMConfig(audioID = "sndAudio", showControls = true, butterMeDivID = "butterMeDiv") {
+	addBMConfig(audioID = "audioPlayer", showControls = true, butterMeDivID = "butterMeDiv") {
 
 		configScript = document.createElement("script");
 		configScript.type = "text/javascript";
