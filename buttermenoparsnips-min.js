@@ -69,6 +69,10 @@ let canvas = document.createElement("canvas");
 canvas.id = canvasID;
 canvas.width = 400;
 canvas.height = 400;
+
+canvas.width = "40vw";
+canvas.height = "40vh";
+
 butterMeDiv.appendChild(canvas);
 
 let resetBtn;
