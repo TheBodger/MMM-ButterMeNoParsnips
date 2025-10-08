@@ -64,21 +64,22 @@ Module.register("MMM-ButterMeNoParsnips", {
 
 			audioSelectWrapper = document.createElement("div");    
 			audioSelectWrapper.id = "audioSelectWrapper";
+			audioSelectWrapper.className = "small";
 
-			localFileBut = document.createElement("div");
-			localFileBut.id = "localFileBut";
-			lfbspan = document.createElement("span");
-			t0 = document.createTextNode("Load local files");
-			lfbspan.className = "small";
-			lfbspan.appendChild(t0);
-			localFileBut.appendChild(lfbspan)
+				localFileBut = document.createElement("div");
+				localFileBut.id = "localFileBut";
+				lfbspan = document.createElement("span");
+				t0 = document.createTextNode("Load local files");
+			
+				lfbspan.appendChild(t0);
+				localFileBut.appendChild(lfbspan)
 
-			streamingURLBut = document.createElement("div");
-			streamingURLBut.id = "streamingURLBut";
-			subspan = document.createElement("span");
-			t00 = document.createTextNode("Load URL");
-			subspan.appendChild(t00);
-			streamingURLBut.appendChild(subspan)
+				streamingURLBut = document.createElement("div");
+				streamingURLBut.id = "streamingURLBut";
+				subspan = document.createElement("span");
+				t00 = document.createTextNode("Load URL");
+				subspan.appendChild(t00);
+				streamingURLBut.appendChild(subspan)
 
 			audioSelectWrapper.appendChild(localFileBut);
 			audioSelectWrapper.appendChild(streamingURLBut);
@@ -87,42 +88,43 @@ Module.register("MMM-ButterMeNoParsnips", {
 
 			presetControls = document.createElement("div");
 			presetControls.id = "presetControls";
+			presetControls.className = "small";
 
-			d1 = document.createElement("div");
-			t1 = document.createTextNode("preset:");
-			d1.appendChild(t1);
-			s1 = document.createElement("select");
-			s1.id = "presetSelect";
-			d1.appendChild(s1);
-			presetControls.appendChild(d1);
+				d1 = document.createElement("div");
+				t1 = document.createTextNode("preset:");
+				d1.appendChild(t1);
+				s1 = document.createElement("select");
+				s1.id = "presetSelect";
+				d1.appendChild(s1);
+				presetControls.appendChild(d1);
 
-			d2 = document.createElement("div");
-			t2 = document.createTextNode("cycle:");
-			d2.appendChild(t2);
-			i21 = document.createElement("INPUT");
-			i21.setAttribute("type", "checkbox");
-			i21.checked = true;
+				d2 = document.createElement("div");
+				t2 = document.createTextNode("cycle:");
+				d2.appendChild(t2);
+				i21 = document.createElement("INPUT");
+				i21.setAttribute("type", "checkbox");
+				i21.checked = true;
 
-			i22 = document.createElement("input");
-			i22.setAttribute("type", "number");
-			i22.id = "presetCycleLength;"
-			i22.step = 1;
-			i22.defaultValue = 15;
-			i22.min = 1;
+				i22 = document.createElement("input");
+				i22.setAttribute("type", "number");
+				i22.id = "presetCycleLength;"
+				i22.step = 1;
+				i22.defaultValue = 15;
+				i22.min = 1;
 
-			d2.appendChild(i21);
-			d2.appendChild(i22);
+				d2.appendChild(i21);
+				d2.appendChild(i22);
 
 			presetControls.appendChild(d2);
 
-			d3 = document.createElement("div");
-			t3 = document.createTextNode("random:");
-			d3.appendChild(t3);
-			i31 = document.createElement("input");
-			i31.setAttribute("type", "checkbox")
-			i31.id = "presetRandom;"
-			i31.checked = true;
-			d3.appendChild(i31);
+				d3 = document.createElement("div");
+				t3 = document.createTextNode("random:");
+				d3.appendChild(t3);
+				i31 = document.createElement("input");
+				i31.setAttribute("type", "checkbox")
+				i31.id = "presetRandom;"
+				i31.checked = true;
+				d3.appendChild(i31);
 			presetControls.appendChild(d3);
 
 			wrapper.appendChild(presetControls);
