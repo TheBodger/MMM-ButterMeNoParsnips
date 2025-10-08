@@ -69,6 +69,7 @@ Module.register("MMM-ButterMeNoParsnips", {
 			localFileBut.id = "localFileBut";
 			lfbspan = document.createElement("span");
 			t0 = document.createTextNode("Load local files");
+			t0.style.font = "10px";
 			lfbspan.appendChild(t0);
 			localFileBut.appendChild(lfbspan)
 
@@ -128,8 +129,8 @@ Module.register("MMM-ButterMeNoParsnips", {
 
 			canvas = document.createElement("canvas");
 			canvas.id = "canvas";
-			canvas.width = 800;
-			canvas.height = 600;
+			canvas.width = 600;
+			canvas.height = 300;
 
 			wrapper.appendChild(canvas);
 
