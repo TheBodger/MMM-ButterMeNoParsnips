@@ -69,7 +69,7 @@ Module.register("MMM-ButterMeNoParsnips", {
 			localFileBut.id = "localFileBut";
 			lfbspan = document.createElement("span");
 			t0 = document.createTextNode("Load local files");
-			t0.style.font = "10px";
+			lfbspan.style.font = "10px";
 			lfbspan.appendChild(t0);
 			localFileBut.appendChild(lfbspan)
 
