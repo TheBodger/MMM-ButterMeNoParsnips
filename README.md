@@ -2,6 +2,8 @@
 
 Unsuitable for Pi. At the moment the rpi does not appear to sufficiently support webgl that is used by the butterchurn visualiser.
 
+https://github.com/jberg/butterchurn/blob/master/examples/demo.html
+
 This has been tested using edge on win11 ok.
 This has been tested on Bookworm on PI5, no webgl support.
 
