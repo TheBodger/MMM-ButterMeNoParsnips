@@ -131,8 +131,8 @@ Module.register("MMM-ButterMeNoParsnips", {
 
 			canvas = document.createElement("canvas");
 			canvas.id = "canvas";
-			canvas.width = 600;
-			canvas.height = 300;
+			canvas.width = 400;
+			canvas.height = 400;
 
 			wrapper.appendChild(canvas);
 
