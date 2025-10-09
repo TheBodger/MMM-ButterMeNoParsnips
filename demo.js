@@ -17,6 +17,7 @@ $(function () {
 	var canvas = document.getElementById('canvas');
 
 	function connectToAudioAnalyzer(sourceNode) {
+
 		if (delayedAudible) {
 			delayedAudible.disconnect();
 		}
@@ -35,74 +36,30 @@ $(function () {
 		visualizer.render();
 	}
 
-	function playBufferSource(buffer) {
-		if (!rendering) {
-			rendering = true;
-			startRenderer();
-		}
-
-		if (sourceNode) {
-			sourceNode.disconnect();
-		}
-
-		sourceNode = audioContext.createBufferSource();
-		sourceNode.buffer = buffer;
-		connectToAudioAnalyzer(sourceNode);
-
-		sourceNode.start(0);
-	}
-
 	function loadLocalFiles(files, index = 0) {
-		audioContext.resume();
 
-		var reader = new FileReader();
-		reader.onload = (event) => {
-			audioContext.decodeAudioData(
-				event.target.result,
-				(buf) => {
-					playBufferSource(buf);
+		let audioElement = playStream(URL.createObjectURL(files[index]));
 
-					setTimeout(() => {
-						if (files.length > index + 1) {
-							loadLocalFiles(files, index + 1);
-						} else {
-							sourceNode.disconnect();
-							sourceNode = null;
-							$("#audioSelectWrapper").css('display', 'block');
-						}
-					}, buf.duration * 500);//was 1000
-				}
-			);
-		};
-		var file = files[index];
-		reader.readAsArrayBuffer(file);
+		setTimeout(() => {
+
+			if (files.length > index + 1) {
+				loadLocalFiles(files, index + 1);
+			} else {
+				audioElement.pause();              // Stop playback
+				audioElement.currentTime = 0;      // Reset to beginning
+				audioElement.src = "";             // Clear source to prevent reloading
+				audioElement.load(); 
+				$("#audioSelectWrapper").css('display', 'block');
+			}
+		}, 20*1000); //20 seconds
+
 	}
-
-	async function loadStreamFromUrl(url) {
-		audioContext.resume();
-
-		try {
-			const response = await fetch(url, { mode: 'cors' });
-			const arrayBuffer = await response.arrayBuffer();
-
-			audioContext.decodeAudioData(arrayBuffer, (buffer) => {
-				playBufferSource(buffer);
-			});
-		} catch (err) {
-			console.error("Failed to load stream:", err);
-		}
-	}
-
-	function playLiveStream(url) {
+	function playStream(url) {
 
 		if (!rendering) {
 			rendering = true;
 			startRenderer();
 		}
-
-		//if (sourceNode) {
-		//	sourceNode.disconnect();
-		//}
 
 		audioContext.resume();
 
@@ -112,10 +69,12 @@ $(function () {
 		audio.autoplay = true;
 
 		const sourceNode = audioContext.createMediaElementSource(audio);
-		connectToAudioAnalyzer(sourceNode); // same analyzer hookup
+		connectToAudioAnalyzer(sourceNode); // analyzer hookup
 		audio.play();
 	
 		resumeAudioContextIfSuspended();
+
+		return audio;
 
 	}
 
@@ -212,13 +171,12 @@ $(function () {
 	$("#streamingURLBut").click(function () {
 		$("#audioSelectWrapper").css('display', 'none');
 
-		//loadStreamFromUrl("https://ice6.somafm.com/groovesalad-256-mp3");
-		playLiveStream("https://ice6.somafm.com/groovesalad-256-mp3");
+		playStream("https://ice6.somafm.com/groovesalad-256-mp3");
 
 	});
 
 	function initPlayer() {
-		audioContext = new AudioContext();
+
 
 		presets = {};
 		if (window.base && window.base.default) {
@@ -239,12 +197,14 @@ $(function () {
 			presetSelect.appendChild(opt);
 		}
 
+		audioContext = new AudioContext();
 		visualizer = butterchurn.createVisualizer(audioContext, canvas, {
 			width: 800,
 			height: 600,
 			pixelRatio: window.devicePixelRatio || 1,
 			textureRatio: 1,
 		});
+
 		nextPreset(0);
 		cycleInterval = setInterval(() => nextPreset(2.7), presetCycleLength);
 	}

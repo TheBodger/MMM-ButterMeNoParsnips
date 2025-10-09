@@ -15,6 +15,12 @@ let butterMeDivID = "butterMeDiv";
 
 let useMMDiv = false;
 
+var rendering = false;
+var delayedAudible = null;
+let audioContext = null;
+let visualizer = null;
+var sourceNode = null;
+
 if (typeof window.butterMe === "undefined" || window.butterMe === null)
 {
     console.log("butterMe is not set or is null");
@@ -25,11 +31,21 @@ else
 	
 	canvasID = config.canvasID ?? canvasID;
 	audioID = config.audioID ?? audioID;
-	showControls = config.showControls ?? canvasID;
+	showControls = config.showControls ?? false;
 	butterMeDivID = config.butterMeDivID ?? butterMeDivID; useMMDiv = true;
 }
 
 import butterchurn from 'https://unpkg.com/butterchurn@3.0.0-beta.5/dist/butterchurn.js';
+
+let canvas = document.createElement("canvas");
+canvas.id = canvasID;
+//canvas.width = 400;
+//canvas.height = 400;
+
+canvas.style.width = "40vw";
+canvas.style.height = "40vh";
+
+butterMeDiv.appendChild(canvas);
 
 function doSomething(message) {
 	alert(`Message from module: ${message}`);
@@ -40,18 +56,65 @@ window.myModuleAPI = {
 	doSomething
 };
 
-let audioCtx;
-let visualizer;
+
 let source = null;
+
+function initContext() {
+
+	audioContext = new AudioContext();
+	visualizer = butterchurn.createVisualizer(audioContext, canvas, {
+		width: canvas.width,
+		height: canvas.height,
+		pixelRatio: window.devicePixelRatio || 1,
+		textureRatio: 1,
+	});
+}
+
 
 let presetIndex = 0;
 let presets;
 
 let audioElement = document.getElementById(audioID);
 
+function connectToAudioAnalyzer(sourceNode) {
+
+	if (delayedAudible) {
+		delayedAudible.disconnect();
+	}
+
+	delayedAudible = audioContext.createDelay();
+	delayedAudible.delayTime.value = 0.26;
+
+	sourceNode.connect(delayedAudible)
+	delayedAudible.connect(audioContext.destination);
+
+	visualizer.connectAudio(delayedAudible);
+}
+function playStream() {
+
+	if (!rendering) {
+		rendering = true;
+		startRenderer();
+	}
+
+	//if (sourceNode) {
+	//	sourceNode.disconnect();
+	//	sourceNode = null;
+	//}
+
+	audioContext.resume();
+
+	sourceNode = audioContext.createMediaElementSource(audioElement);
+	connectToAudioAnalyzer(sourceNode); // analyzer hookup
+	audioElement.play();
+
+	resumeAudioContextIfSuspended();
+
+}
+
+
 if (!useMMDiv)
 {
-
 	let butterMeDiv = document.createElement("div");
 	butterMeDiv.id = butterMeDivID;
 }
@@ -59,21 +122,6 @@ else
 {
 	let butterMeDiv = document.getElementById(butterMeDivID);
 }
-
-function buildButterMeDiv()
-{
-	alert("Hello fred")
-}
-
-let canvas = document.createElement("canvas");
-canvas.id = canvasID;
-canvas.width = 400;
-canvas.height = 400;
-
-canvas.width = "40vw";
-canvas.height = "40vh";
-
-butterMeDiv.appendChild(canvas);
 
 let resetBtn;
 let prevbtn;
@@ -90,7 +138,6 @@ function addButton(id,name,parentDiv)
 	parentDiv.appendChild(tempBTN);
 
 	return tempBTN;
-
 }
 
 if (showControls) {
@@ -135,20 +182,12 @@ presets = Object.fromEntries(entries);
 // Step 4: Get keys
 let presetKeys = Object.keys(presets);
 
-audioCtx = new AudioContext();
-source = new MediaElementAudioSourceNode(audioCtx, { mediaElement: audioElement, });
-let analyserNode = audioCtx.createAnalyser();
-source.connect(analyserNode);
-analyserNode.connect(audioCtx.destination);
-
 audioElement.addEventListener("play", () => {
-
-    visualizer = butterchurn.createVisualizer(audioCtx, canvas, { width: canvas.width, height: canvas.height });
-    visualizer.connectAudio(analyserNode);
 
     visualizer.loadPreset(presets[presetKeys[presetIndex]], 5.0);
     if (showControls) { presetNameTxt.textContent = presetKeys[presetIndex]; }
-    startRenderer();
+
+	playStream();
 
     if (showControls) {
 
@@ -178,14 +217,12 @@ audioElement.addEventListener("play", () => {
 
 	}
 
-	resumeAudioContextIfSuspended();
-
 });
 
 async function resumeAudioContextIfSuspended() {
-	if (audioCtx.state === 'suspended') {
+	if (audioContext.state === 'suspended') {
 		try {
-			await audioCtx.resume();
+			await audioContext.resume();
 			console.log('AudioContext resumed');
 		} catch (err) {
 			console.error('Failed to resume AudioContext:', err);
@@ -196,5 +233,7 @@ async function resumeAudioContextIfSuspended() {
 function startRenderer() {
     requestAnimationFrame(() => startRenderer());
 	visualizer.render();
-	//console.log(audioCtx.state);
 }
+
+
+initContext();
