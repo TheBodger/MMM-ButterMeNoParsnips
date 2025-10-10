@@ -1,11 +1,7 @@
 # MMM-ButterMeNoParsnips
 
-Unsuitable for Pi. At the moment the rpi does not appear to sufficiently support webgl that is used by the butterchurn visualiser.
-
-https://github.com/jberg/butterchurn/blob/master/examples/demo.html
-
 This has been tested using edge on win11 ok.
-This has been tested on Bookworm on PI5, no webgl support.
+This has been tested on Bookworm on PI5, ok.
 
 Contains the neccessary code to support the [butterchurn](https://github.com/jberg/butterchurn) visualiser and using the butterchurn-presets default visualisations.
 
@@ -19,10 +15,11 @@ To incorporate the visualiser within your own code, include the buttermenoparsni
 ```js
 <script type="module" src="buttermenoparsnips-min.js"></script>
 ```
-
 use the helper functions to pass any config details such as the id of the audio tag.
 
 Because this uses the MediaElementAudioSourceNode function, some combinations of browsers and streaming servers, especially DLNA servers may be blocked from working. Use the proxy in MMM-AudioProxy or other proxy server to get round this feature.
+
+If the visualisation doesnt display, ensure that your device/software supports the WebGl version that buttchurn needs. Download and open the following demo from butterchurn [Demo](https://github.com/jberg/butterchurn/blob/master/examples/demo.html). If it works ok then check all settings in the config, any messages that are reported. If still having issues raise an issue on Github. Thanks
 
 There are no dependencies.
 
