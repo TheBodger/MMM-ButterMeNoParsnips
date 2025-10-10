@@ -1,12 +1,17 @@
 
 canvas {
   transition: transform 0.3s ease;
+  transform-origin: center center;
 }
 
 .butterme {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.button-transparent {
+  opacity: 0.05; /* Default semi-transparent state */
 }
 
 .button-overlay {
@@ -20,7 +25,6 @@ canvas {
   z-index: 10; /* ensure it overlays the canvas */
   background: rgba(0, 0, 0, 0.3); /* optional: semi-transparent background */
   border-radius: 4px;
-  opacity: 0.05; /* Default semi-transparent state */
   transition: opacity 0.3s ease-in-out; /* Smooth fade effect */
 }
 

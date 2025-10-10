@@ -39,10 +39,8 @@ import butterchurn from 'https://unpkg.com/butterchurn@3.0.0-beta.5/dist/butterc
 
 let canvas = document.createElement("canvas");
 canvas.id = canvasID;
-//canvas.width = 400;
-//canvas.height = 400;
 
-canvas.style.width = "40vw";
+canvas.style.width = "40vh"; //ensure canvas is square
 canvas.style.height = "40vh";
 
 butterMeDiv.appendChild(canvas);
@@ -97,15 +95,13 @@ function playStream() {
 		startRenderer();
 	}
 
-	//if (sourceNode) {
-	//	sourceNode.disconnect();
-	//	sourceNode = null;
-	//}
-
 	audioContext.resume();
 
-	sourceNode = audioContext.createMediaElementSource(audioElement);
-	connectToAudioAnalyzer(sourceNode); // analyzer hookup
+	if (!sourceNode) {
+		sourceNode = audioContext.createMediaElementSource(audioElement);
+		connectToAudioAnalyzer(sourceNode); // analyzer hookup
+	}
+
 	audioElement.play();
 
 	resumeAudioContextIfSuspended();
@@ -139,12 +135,25 @@ function addButton(id,name,parentDiv)
 
 	return tempBTN;
 }
+function isTouchDevice() {
+	return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
 
 if (showControls) {
+
+	let transparentClass = null;
+
+	if (!isTouchDevice())
+	{
+		// add the fade capabilities
+
+		transparentClass = "button-transparent";
+	}
 
 	let controlsDiv = document.createElement("div");
 	controlsDiv.id = "controlsDiv";
 	controlsDiv.className = "button-overlay";
+	if (transparentClass) { controlsDiv.classList.add(transparentClass); }
 
 	let btnName = ""; let btnText = "";
 
